@@ -1,0 +1,43 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#menu-h {
+    margin: auto;
+}
+#menu-h li {
+    display: inline;
+}
+
+#menu-h li a {
+   color: white;
+   margin-top: 25px;
+   margin-left: 65px;
+}
+
+.Imagem {
+    background-image: url(../Imagens/Uailink.PNG);
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+}
+
+.input-filtro {
+    width: 200px;
+    margin-top: 80px;
+    margin-left: 100px;
+}
+
+.div-filtro{
+    width: 5%;
+    display: inline-block;
+    border: groove;
+}
+
+.button {
+    outline: none;
+    margin-left: 15%
+}
+

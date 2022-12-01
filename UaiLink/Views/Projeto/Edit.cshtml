@@ -1,0 +1,231 @@
+﻿@using UaiLink.Models.Enum
+@model UaiLink.Models.ProjetoDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+    .modal-container {
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .5);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        z-index: 2000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .modal-container.mostrar {
+            display: flex;
+        }
+
+        .done{
+        }
+
+        .Delete{
+            
+        }
+
+        .delete{
+            display: none;
+        }
+
+        .teste {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+        }
+
+        li > button {
+            font-weight: normal;
+            background: none;
+            border: none;
+            float: right !important;
+            color: #025f70;
+            font-weight: 800;
+        }
+    </style>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="~/css/style.css">
+  <link rel="stylesheet" href="~/css/Cadastro_Login.css" />
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="shortcut icon" href="../Imagens/favicon.png" type="image/x-icon">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <title>UaiLink</title>
+</head>
+
+<body style="background-color: #F0FFFF">
+  <header>
+    <div class="flex-container menu">
+      <div>
+        <img src="~/Imagens/Logo.svg" alt="Logo">
+      </div>
+     <ul class="list-items">
+          <li><a href="/home/index">Home</a></li>
+            @if(@ViewBag.Nome == "Logado")
+            {
+                <li><a href="/usuario/details/@ViewBag.IdUsuario">Meu Perfil</a></li>
+                <li><a href="/projeto/create">Item Portfólio</a></li>
+            }
+      </ul>
+      <ul class="list-items">
+            @if (@ViewBag.Nome == "Deslogado")
+            {
+                <li><a href="/usuario/logar" class="log-in">Entrar</a></li>
+                <li><a href="/usuario/create" class="Create-account">Criar Conta</a></li>
+            }
+            else
+                {
+                     <li style= "margin-top: 8px;"><label style="margin-right: auto">@ViewBag.NomeUsuario</label></li>
+                }
+      </ul>
+    </div>
+  </header>
+  <h1 class ="Titulo" style="margin-top: 2%;margin-bottom: 0px;">Item Portfólio</h1>
+<div class="Container" style="background-color: #E6E6FA; width: 900px; height: 345px; margin-left: 18%; margin-top: 30px; border-radius: 5px; box-shadow: 2px 3px 3px 0 grey;">
+       <form asp-action="Edit">
+           <input type="hidden" asp-for="ProjetoID" />
+           <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                <div style="width:39% ; margin-left: 10%">
+                     <b class="profileprojeto" style="color: #8345D7;Font-size:22px;margin-top: 20px;margin-left: -32px;">Tema</b>
+                     <input asp-for="Titulo" class="form-control" style="width: 258px;height: 36px;margin-left: 25px;" placeholder="Tema do Projeto"/>
+                </div>
+                <div style="width:39% ;margin-right : 10%">
+                    <div class=".Form-group1">
+                        <b class="profileprojeto" style="color: #8345D7;Font-size:22px;margin-top: 20px;margin-left: 40px;">Categoria</b>
+                        <select asp-for="Categoria" style="width: 204px;margin-left: 73px" class="form-control" asp-items = "Html.GetEnumSelectList<CategoriaProjetoEnum>()"></select>
+                    </div>
+                </div>
+           </div>
+
+            <div style="margin-top: 2%; margin-bottom: 2%">
+                <div class="form-group">
+                    <b class="profileprojeto" style="color: #8345D7;Font-size:22px;margin-top: 20px;margin-left: -55px;">Descrição</b>
+                    <textarea asp-for="Descricao" class="form-control" style="width: 74%;height: 100px;margin: 0 auto;background: #E6E6FA;resize: none" rows="3" placeholder="Descrição"></textarea>
+                </div>
+            </div>
+
+            <ul class="list-items">
+              <li><a href="#" class="log-in empresa" data-toggle="modal" data-target="#exampleModal" style="background-color: #8345D7; margin-top: 4px; margin-left: 117px">+Anexo</a></li>
+              <li><input type="submit" id="finalizar" value="salvar" class="log-in" style="background-color: #8345D7; margin-left: 794px; margin-top: -63px"/></li>
+            </ul>
+       </form>
+
+  </div>
+  <div class="modal-container" id="modal-teste" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="width: 500px;background-color: #F0FFFF">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color: #8345D7;">Anexo</h5>
+                <button type="button" id = "voltar" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="Tag" class="col-form-label" id ="recipient-name" style="color: #8345D7">Adcionar Anexo:</label>
+                  </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                      </div>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="adicionar" aria-describedby="inputGroupFileAddon01">
+                            @if (@Model.Anexo.NomeAnexo == "Sem Anexo")
+                            {
+                                <label id="text" class="custom-file-label" for="inputGroupFile01">Escolher arquivo</label>
+                            }
+                            else
+                            {
+                                <label id="text" class="custom-file-label" for="inputGroupFile01">@Model.Anexo.NomeAnexo</label>
+                            }
+                        </div>
+                    </div>
+                 </div>
+              <div class="modal-footer">
+                <button type="submit" id="salvar" class="btn btn-primary" style="background-color: #8345D7">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+ <script>
+        $(document).ready(function() {
+            $('input[type="file"]').change(function(e) {
+                var geekss = e.target.files[0].name;
+                $("#text").text(geekss);
+ 
+            });
+        });
+</script>
+
+ <style type="text/css">
+    .image-upload > input
+    {
+    display: none;
+    }
+</style>
+
+<script>
+
+    $(function () {
+
+        var form;
+        $('#adicionar').change(function (event) {
+            form = new FormData();
+            form.append('Anexo', event.target.files[0]); // para apenas 1 arquivo
+        });
+
+        $('#salvar').click(function () {
+            debugger
+            $.ajax({
+                url: '/projeto/GetDados', // Url do lado server que vai receber o arquivo
+                data: form,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                }
+            });
+        });
+    });
+
+
+    function modalLogin(modalID) {
+        const modal = document.getElementById(modalID);
+        modal.classList.add('mostrar');
+        modal.addEventListener('click', (e) => {
+            if(e.target.id == modalID || e.target.id == 'voltar'){
+                modal.classList.remove('mostrar');
+            }
+            if (e.target.id == modalID || e.target.id == 'salvar') {
+
+                modal.classList.remove('mostrar');
+            }
+        })
+    }
+
+    const empresa = document.querySelector('.empresa');
+    empresa.addEventListener('click', function () {
+        modalLogin('modal-teste');
+    })
+</script>
+
+</body>
+
+</html>

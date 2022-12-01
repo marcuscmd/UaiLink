@@ -1,0 +1,505 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: linear-gradient(180deg, #8345D7 -231.94%, rgba(196, 196, 196, 0) 147.98%);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li a {
+  text-decoration: none;
+}
+
+div img {
+    display: block;
+    width: 85%;
+}
+
+.flex-container {
+  display: flex;
+  max-width: 992px;
+  margin: auto;
+  width: 100%;
+  min-width: 320px;
+}
+
+header {
+    background-color: #8345D7;
+    display: flex;
+    height: 75px;
+}
+
+header .list-items {
+  display: flex;
+  width: 100%;
+  max-width: 260px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.list-items li a {
+    font-weight: 500;
+    color: #FFF;
+    text-decoration: none;
+}
+
+header .menu {
+  justify-content: space-between;
+  color: #FFF;
+}
+
+.log-in {
+    display: flex;
+    border: 1px solid #FFF;
+    width: 100px;
+    padding: 15px 15px;
+    border-radius: 25px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+    margin-right: 5px;
+    color: #FFF;
+}
+
+.Create-account {
+    width: 118px;
+    display: flex;
+    background-color: #FFF;
+    padding: 15px 15px;
+    border-radius: 25px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+}
+
+.list-items li .Create-account {
+    color: black;
+    font-weight: 600;
+}
+
+.filtro {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.filtro span {
+  display: flex;
+  background-color: #8345D7;
+  box-shadow: 0px 3px 3px 0 grey;
+  color: #FFF;
+  width: 70px;
+  height: 40px;
+  border-radius: 25px 5px 5px 25px;
+  margin: 5px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.filtro input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E7E9D6;
+  border-radius: 5px;
+  box-shadow: 2px 3px 3px 0 grey;
+  padding: 9px 15px;
+  margin: 5px 0;
+}
+
+.filtro select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E7E9D6;
+  border-radius: 5px;
+  box-shadow: 2px 3px 3px 0 grey;
+  margin: 5px 0;
+  padding: 9px 15px;
+}
+
+.filtro .btn {
+  display: flex;
+  background-color: #8345D7;
+  box-shadow: 0px 3px 3px 0 grey;
+  color: #FFF;
+  width: 70px;
+  border: none;
+  height: 40px;
+  border-radius: 5px 25px 25px 5px;
+  margin: 5px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.filtroFC input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 2px 3px 3px 0 grey;
+    padding: 9px 15px;
+    width: 300px;
+    height: 20px;
+    border: solid #8345D7;
+}
+
+.filtroFC select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 2px 3px 3px 0 grey;
+    margin: 5px 0;
+    padding: 9px 15px;
+    height: 40px;
+    margin-left: -80px;
+    border: solid #8345D7;
+    margin-top: 40px;
+}
+
+.filtroFC button {
+    width: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 5px 5px 5px 0 grey;
+}
+
+.listadetails {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.listadetails label {
+    width: 100px;
+    margin-top: 5px;
+}
+
+.listadiv1 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -288px;
+}
+
+.listadiv1 dd {
+        width: 170px;
+        margin-top: 9px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.card-wrapper {
+    margin:auto;
+    margin-bottom: 285px;
+    width: 1300px;
+    height: 739px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.card-wrapper1 {
+    margin: auto;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    margin-left: -96px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.info-wrapper1 {
+    margin: auto;
+    width: 1300px;
+    height: 300px;
+    display: flex;
+    margin-left: -96px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card {
+  padding: 1.25rem;
+  background: #E7E9D6;
+  width: 580px;
+  height: 200px;
+  box-shadow: 3px 3px 3px 0 grey;
+  border-radius: 10px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.cardprojeto {
+    padding: 1.25rem;
+    background: #E7E9D6;
+    width: 800px;
+    height: 200px;
+    box-shadow: 3px 3px 3px 0 grey;
+    border-radius: 10px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 207px;
+}
+
+.card1 {
+    padding: 1.25rem;
+    background: #E7E9D6;
+    width: 850px;
+    height: 180px;
+    box-shadow: 3px 3px 3px 0 grey;
+    border-radius: 10px;
+    user-select: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 250px;
+    flex-direction: row;
+    margin-top: 21px;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.profileButoon {
+    text-align: center;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileButoonAx {
+    height: 189px;
+    margin-left: 50px;
+    text-align: center;
+    width: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileprojeto {
+    text-align: center;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profileprojeto p {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Istok Web';
+    font-style: normal;
+    color: #8345D7;
+}
+
+.profileprojeto b {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Istok Web';
+    font-style: normal;
+    color: #8345D7;
+    font-size: 22px;
+}
+
+.profile {
+  text-align: center;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile p {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#card-imgAnexo {
+    width: 25px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 5px 5px 5px 0 grey;
+}
+
+#card-img {
+  width: 100px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: 5px 5px 5px 0 grey;
+}
+
+.info-wrapper {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info b{
+    display: flex;
+}
+
+    .info p {
+        width: 70%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+footer {
+  background-color: #8345D7;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+footer .footer {
+  justify-content: space-between;
+  font-size: 16px;
+  color: #FFF;
+}
+
+/*-------------------*/
+.box {
+    display: flex;
+    align-items: center;
+}
+
+
+.form-group.end {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group.login {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: -50px;
+}
+
+.login div label {
+    width: 27%;
+    padding: 3px 1px 3px 1px;
+}
+
+.login div {
+    display: flex;
+    width: 100%;
+    margin: 10px;
+    padding: 7px;
+    margin-left: -30px;
+    height: 28px
+
+}
+
+.login input {
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px 0 grey;
+    border: 2px solid #8345D7;
+}
+
+
+.end div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 10px;
+    margin-left: -45px;
+    padding: 5px;
+}
+
+.end input {
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px 0 grey;
+    border: 2px solid #8345D7;
+    height: 26px;
+}
+
+.end div label {
+    width: 13%;
+    padding: 3px 1px 3px 1px;
+}
+
+.btn-custom {
+    padding: 1px 15px 3px 2px;
+    border-radius: 50px;
+}
+
+.btn-icon {
+    padding: 8px;
+    background: #ffffff;
+}
+
+/*-------------------*/
+
+
+/* ----- scrolbar ----- */
+/* Works on Firefox */
+body {
+  scrollbar-width: thin;
+  /* "auto" or "thin" */
+  scrollbar-color: grey white;
+  /* scroll thumb and track */
+}
+
+/* Works on Chrome, Edge, and Safari */
+body::-webkit-scrollbar {
+  max-width: 7px;
+  /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: white;
+  /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: grey;
+  /* color of the scroll thumb */
+  border-radius: 20px;
+  /* roundness of the scroll thumb */
+  border: 1.5px solid white;
+  /* creates padding around scroll thumb */
+}

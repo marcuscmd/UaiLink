@@ -1,0 +1,308 @@
+﻿@using UaiLink.Models.Enum
+@model UaiLink.Models.UsuarioDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <style>
+    .modal-container {
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .5);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        z-index: 2000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .modal-container.mostrar {
+            display: flex;
+        }
+
+        .done{
+        }
+
+        .delete{
+            display: none;
+        }
+
+        li > button {
+            font-weight: normal;
+            background: none;
+            border: none;
+            float: right !important;
+            color: #025f70;
+            font-weight: 800;
+        }
+    </style>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UaiLink</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/Cadastro_Login.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="~/Imagens/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body style="overflow-x: hidden; background-color: #F0FFFF">
+
+ <header>
+    <div class="flex-container menu">
+      <div>
+        <img src="~/Imagens/Logo.svg" alt="Logo">
+      </div>
+      <ul class="list-items" style="margin-top: 15px;">
+          <li><a href="/home/index">Home</a></li>
+            @if(@ViewBag.Nome == "Logado")
+            {
+                if(@ViewBag.TipoUsuario == "Aluno")
+                {
+                    <li><a href="/usuario/details/@ViewBag.IdUsuario">Meu Perfil</a></li>   
+                    <li><a href="/projeto/create">Item Portfólio</a></li>
+                }else
+                    {
+                        <li><a href="/usuario/detailsVisitante/@ViewBag.IdUsuario">Meu Perfil</a></li>   
+                    }  
+            }
+      </ul>
+      <ul class="list-items" style="margin-top: 23px;">
+            @if (@ViewBag.Nome == "Deslogado")
+            {
+                <li><a href="/usuario/logar" class="log-in">Entrar</a></li>
+                <li><a href="/usuario/create" class="Create-account">Criar Conta</a></li>
+            }
+            else
+            {
+                <li><label style="margin-right: auto">@Model.Nome</label></li>
+            }
+      </ul>
+    </div>
+  </header>
+
+ <div class="Container" style="background-color: #E6E6FA; width: 900px; height: 750px; margin-left: 18%; margin-top: 30px; border-radius: 5px; box-shadow: 2px 3px 3px 0 grey;">
+ 
+                <div class = "Row" style="margin-top: 2%; margin-bottom: 126px; font-size:0;height: 10px;">
+                    <div class="profile" style="width:20% ; margin-left: 6%">
+                        @if (string.IsNullOrEmpty(Model.UrlFoto))
+                        {
+                            <img src="https://bervel.com.br/wp-content/uploads/2017/11/team-4.png" id="card-img" style="width: 110px;height: 110px;object-fit: contain;">
+                        }else
+                        {
+                            <img src="@Model.UrlFoto" id="card-img" style="width: 110px;height: 110px;object-fit: contain;">
+                        }
+                    </div>
+                    <div  style="width:50%; margin-left: -3%;">
+                        <h1 class ="Titulo" style="margin-top: 3%; margin-bottom: 0;" >Meu Perfil</h1>
+                    </div>
+                    <div class="profileButoonAx" style="margin-top: -115px;margin-left: 800px;height: 0px;">
+                        <a id="card-imgAnexo" style ="width: 30px;" href="/usuario/edit"><img src="~/Imagens/editar.png" style="width: 100%;"></a>
+                    </div>
+                    <div class="profileButoonAx" style="margin-top: -115px;margin-left: 851px;height: 0px;">
+                        <button id="card-imgAnexo" style="width: 30px;" data-nome="nome1" data-id="@Model.UsuarioID" class="deletar"><img src="~/Imagens/excluir.png" style="width: 100%;"></button>
+                    </div>
+                </div>
+                        
+                <div style="margin-top: 1%; margin-bottom: 2%;">
+                        <div class="Form-group">
+                        <input asp-for="Nome" class="form-control" placeholder="Nome" disabled=""/>
+                    </div>
+                            @Html.ValidationMessageFor(x => x.Nome)
+                </div>
+
+                <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                        <div class="Form-group" style="width:39% ; margin-left: 10%">
+                            <input asp-for="Cpf" class="form-control" placeholder="CPF" disabled=""/>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Cpf)
+                        <div class="Form-group" style="width:39% ;margin-right : 10%">
+                            <input asp-for="CEP" class="form-control" placeholder="CEP" disabled=""/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.CEP)
+                </div>
+
+                <div style="margin-top: 2%; margin-bottom: 2%; width:49%; margin-left: 5%">
+                            <div class="Form-group">
+                            <input asp-for="Telefone" class="form-control" placeholder="Telefone" disabled=""/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.Telefone)
+                    </div>
+
+                <div style="margin-top: 2%; margin-bottom: 2%">
+                            <div class="Form-group">
+                            <input asp-for="Curso" class="form-control" placeholder="Curso" disabled=""/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.Curso)
+                </div>
+
+                <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                    <div class="Form-group" style="width:39% ; margin-left: 10%">
+                        <input asp-for="DataInicioCurso" title="Data de Início do Curso" type="date" class="form-control" placeholder="Data Inicio do Curso" disabled=""/>
+                    </div>
+                        @Html.ValidationMessageFor(x => x.DataInicioCurso)
+                    <div class="Form-group" style="width:39% ;margin-right : 10%" title="Data Final do Curso">
+                        <input asp-for="PrevisaoFimCurso" type="date" class="form-control" placeholder="Data Final do Curso (Prevista)" disabled=""/>
+                    </div>
+                        @Html.ValidationMessageFor(x => x.PrevisaoFimCurso)
+                </div>
+
+                <div style="margin-top: 2%; margin-bottom: 2%">
+                    <div class="Form-group">
+                    <input asp-for="Email" class="form-control" placeholder="Email" disabled=""/>
+                </div>
+                    @Html.ValidationMessageFor(x => x.Email)
+                </div>
+
+                <div style="margin-top: 2%; margin-bottom: 2%">
+                        <div class="Form-group">
+                        <select asp-for="EspecificacaoVaga" class="form-control" asp-items = "Html.GetEnumSelectList<EspecificacaoVagaEnum>()"  disabled="" >
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2%; margin-bottom: 2%">
+                    <div class="form-group">
+                        <textarea asp-for="Descricao" class="form-control" style="width: 80%;height: 115px;margin: 0 auto;border-color: #6f42c1;resize: none" rows="3" placeholder="Descrição" disabled=""></textarea>
+                    </div>
+                </div>
+            <a href="/projeto/index" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: #8345D7; margin-left: 300px; margin-top: -5px; width: 191px;">Portfólio</a>
+
+             <ul class="list-items">
+                  <li><a href="#" class="btn btn-primary empresa" data-toggle="modal" data-target="#exampleModal" style="background-color: #8345D7; margin-left: 90px; margin-top: -65px; width: 191px;">Tags</a></li>
+            </ul>
+                  
+
+        </div>
+
+         <div class="modal-container" id="modal-teste" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="width: 500px;background-color: #F0FFFF">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color: #8345D7">Tags:</h5>
+                <button type="button" id = "voltar" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <ul>
+                        @foreach (var item in Model.Tag)
+                       {
+                            <li > @item.TagName </li>
+                       }
+                    </ul>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" id="salvar" class="btn btn-primary" style="background-color: #8345D7">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-container" id="id01" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                   <div class="modal-content" style="width: 500px;background-color: #F0FFFF">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle" style="color: #8345D7">Excluir Projeto</h5>
+                        <button type="button" id = "voltar" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="form-group">
+                            <p>Deseja excluir este Usuario?</p>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" id="sim" class="btn btn-danger delete-yes">Sim</button>
+                        <button type="submit" id="nao" class="btn btn-primary" style="background-color: #8345D7">Não</button>
+                      </div>
+                    </div>
+              </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script>
+
+        var id;
+        $('.deletar').on('click', function(){
+            debugger
+            var nome = $(this).data('nome'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
+            id = $(this).data('id'); // vamos buscar o valor do atributo data-id
+        });
+
+        function modalDelete(modalID) {
+                const modal2 = document.getElementById(modalID);
+                modal2.classList.add('mostrar');
+                modal2.addEventListener('click', (e) => {
+                    if(e.target.id == modalID || e.target.id == 'voltar'){
+                        modal2.classList.remove('mostrar');
+                    }
+                    if(e.target.id == modalID || e.target.id == 'nao'){
+                        modal2.classList.remove('mostrar');
+                    }
+                    if (e.target.id == modalID || e.target.id == 'sim') {
+                        modal2.classList.remove('mostrar');
+
+                        var jsonObjs = JSON.stringify(id);
+
+                        jQuery.ajax({
+                            type: "POST",
+                            url: "/usuario/DeletarUsuario",
+                            dataType: "json",
+                            data: { id: jsonObjs} ,
+                                success: function (data) {
+                                }
+                            });
+                    }
+                });
+            }
+
+        const deletarperfil = document.querySelector('.deletar');
+            deletarperfil.addEventListener('click', function () {
+            modalDelete('id01');
+        });
+
+        function modalLogin(modalID) {
+            const modal = document.getElementById(modalID);
+            modal.classList.add('mostrar');
+            modal.addEventListener('click', (e) => {
+                if(e.target.id == modalID || e.target.id == 'voltar'){
+                    modal.classList.remove('mostrar');
+                }
+                if (e.target.id == modalID || e.target.id == 'salvar') {
+                    modal.classList.remove('mostrar');
+                }
+            });
+        }
+        const empresa = document.querySelector('.empresa');
+        empresa.addEventListener('click', function () {
+            modalLogin('modal-teste');
+        })
+
+        
+  </script>
+
+   
+    <script src="http://digitalbush.com/wp-content/uploads/2014/10/jquery.maskedinput.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () { 
+            $('#Cpf').mask('000.000.000-00');
+            $('#Telefone').mask('(00) 00000-0000');
+            $('#CEP').mask('00000-000');
+        });
+    </script>
+</body>
+</html>

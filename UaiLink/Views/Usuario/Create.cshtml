@@ -1,0 +1,122 @@
+﻿@using UaiLink.Models.Enum
+@model UaiLink.Models.UsuarioDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>  
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UaiLink</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Cadastro_Login.css" />
+</head>
+
+<body>
+    <div class = "Container">
+        <div class="row" style="height: 100%">
+            <div class="col-md-6">
+                <div class="imagemDeFundo"></div>
+            </div>
+            <div class="col-md-6">
+                @if(TempData["Erro"] != null)
+                {
+                    <div class="alert alert-danger" role="alert" style="margin-top: 20px; margin-left: 180px; width: 590px;">
+                        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">x</button>
+                          @TempData["Erro"]
+                    </div>
+                }
+                <h1 class ="Titulo" >Criar Conta</h1>
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div style="margin-top: 2%; margin-bottom: 2%">
+                         <div class="Form-group">
+                            <input asp-for="Nome" class="form-control" placeholder="Nome"/>
+                        </div>
+                             @Html.ValidationMessageFor(x => x.Nome)
+                    </div>
+
+                    <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                        <div class="Form-group" style="width:39% ; margin-left: 10%">
+                            <input asp-for="Cpf"oninput="mascara(this)" class="form-control" placeholder="CPF"/>
+                        </div>
+                        @Html.ValidationMessageFor(x => x.Cpf)
+                        <div class="Form-group" style="width:39% ;margin-right : 10%">
+                            <input asp-for="CEP" class="form-control" placeholder="CEP" />
+                        </div>
+                         @Html.ValidationMessageFor(x => x.CEP)
+                    </div>
+
+                    <div style="margin-top: 2%; margin-bottom: 2%">
+                         <div class="Form-group">
+                            <input asp-for="Telefone" class="form-control" placeholder="Telefone"/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.Telefone)
+                    </div>
+
+                    <div style="margin-top: 2%; margin-bottom: 2%">
+                         <div class="Form-group">
+                            <input asp-for="Email" class="form-control" placeholder="Email"/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+
+                    <div style="margin-top: 2%; margin-bottom: 2%">
+                         <div class="Form-group">
+                            <input type="password" asp-for="Senha" class="form-control" placeholder="Senha"/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.Senha)
+                    </div>
+
+                    <div style="margin-top: 2%; margin-bottom: 2%">
+                         <div class="Form-group">
+                            <input asp-for="Curso" class="form-control" placeholder="Curso"/>
+                        </div>
+                    </div>
+
+                     <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                        <div class="Form-group" style="width:39% ; margin-left: 10%">
+                            <input asp-for="DataInicioCurso" type="valor" class="form-control" placeholder="Data Inicio do Curso"/>
+                        </div>
+                        <div class="Form-group" style="width:39% ;margin-right : 10%">
+                            <input asp-for="PrevisaoFimCurso" type="text" class="form-control" placeholder="Data Final do Curso (Prevista)"/>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 3%; width:40%; margin-left:30%;margin-left:30%">
+                        <div class="Form-group">
+                            <input type="submit" value="Criar Conta" class="ButtonCadastro" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <script src="~/js~/js/site.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://digitalbush.com/wp-content/uploads/2014/10/jquery.maskedinput.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () { 
+            $('#Cpf').mask('000.000.000-00');
+            $('#Telefone').mask('(00)00000-0000');
+            $('#CEP').mask('00000-000');
+            $('#DataInicioCurso').mask('00/00/0000');
+            $('#PrevisaoFimCurso').mask('00/00/0000');
+        });
+
+  </script>
+
+
+</body>
+</html>

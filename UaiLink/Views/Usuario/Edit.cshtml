@@ -1,0 +1,348 @@
+﻿@model UaiLink.Models.UsuarioDto
+@using UaiLink.Models.Enum
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+    .modal-container {
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .5);
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        z-index: 2000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        }
+
+        .modal-container.mostrar {
+            display: flex;
+        }
+
+        .done{
+        }
+
+        .delete{
+            display: none;
+        }
+
+        li > button {
+            font-weight: normal;
+            background: none;
+            border: none;
+            float: right !important;
+            color: #025f70;
+            font-weight: 800;
+        }
+    </style>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UaiLink</title>
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/Cadastro_Login.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="../Imagens/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body style="overflow-x: hidden; background-color: #F0FFFF">
+
+  <header>
+    <div class="flex-container menu">
+      <div>
+        <img src="~/Imagens/Logo.svg" alt="Logo">
+      </div>
+         <ul class="list-items" style="margin-top: 15px;">
+          <li><a href="/home/index">Home</a></li>
+            @if(@ViewBag.Nome == "Logado")
+            {
+                if(@ViewBag.TipoUsuario == "Aluno")
+                {
+                    <li><a href="/usuario/details/@ViewBag.IdUsuario">Meu Perfil</a></li>   
+                    <li><a href="/projeto/create">Item Portfólio</a></li>
+                }else
+                    {
+                        <li><a href="/usuario/detailsVisitante/@ViewBag.IdUsuario">Meu Perfil</a></li>   
+                    }  
+            }
+      </ul>
+      <ul class="list-items">
+            @if (@ViewBag.Nome == "Deslogado")
+            {
+                <li><a href="/usuario/logar" class="log-in">Entrar</a></li>
+                <li><a href="/usuario/create" class="Create-account">Criar Conta</a></li>
+            }
+            else
+            {
+                <li><label style="margin-right: auto; margin-top: 23px;">@Model.Nome, <a href="#" id="chamartela">Sair</a></label></li>
+            }
+      </ul>
+    </div>
+  </header>
+  
+  <div class="Container" style="background-color: #E6E6FA; width: 900px; height: 800px; margin-left: 18%; margin-top: 30px; border-radius: 5px; box-shadow: 2px 3px 3px 0 grey;">
+      
+      <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="UsuarioID" />
+                        <div class = "Row" style="margin-top: 2%; margin-bottom: 115px; font-size:0;height: 10px;">
+                            <div  style="width:7% ; margin-left: 10%">
+                                <div class="image-upload" style="width:28% ;margin-right : 10% ;">
+                                    <label for="uploadImage">
+                                        @if (string.IsNullOrEmpty(Model.UrlFoto))
+                                        {
+                                            <img src="https://bervel.com.br/wp-content/uploads/2017/11/team-4.png" accept="image/*" id="card-img" style="width: 110px; height: 110px;object-fit: cover;">
+                                        }else
+                                        {
+                                            <img style="width: 110px;height: 110px;object-fit: contain;" src="@Model.UrlFoto" id="card-img">
+                                        }
+                                        
+                                    </label>  
+                                    <input id="uploadImage" download="nome_desejado" type="file" name="foto" onchange="PreviewImage();">
+                                </div>
+                            </div>
+                            <div  style="width:50% ; margin-left: 10%">
+                                <h1 class ="Titulo" style="margin-top: 4%; margin-bottom: 0;">Editar Perfil</h1>
+                            </div>
+                        </div>
+                        
+                        <div title="Nome do Usuário" style="margin-top: 3%; margin-bottom: 2%">
+                                <div class="Form-group">
+                                <input asp-for="Nome" class="form-control" placeholder="Nome" />
+                            </div>
+                                    @Html.ValidationMessageFor(x => x.Nome)
+                        </div>
+
+                        <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                                <div class="Form-group" title="CPF" style="width:39% ; margin-left: 10%">
+                                    <input asp-for="Cpf" class="form-control" placeholder="CPF"/>
+                                </div>
+                                @Html.ValidationMessageFor(x => x.Cpf)
+                                <div class="Form-group" title="CEP" style="width:39% ;margin-right : 10%">
+                                    <input asp-for="CEP" class="form-control" placeholder="CEP" />
+                                </div>
+                                    @Html.ValidationMessageFor(x => x.CEP)
+                        </div>
+
+                        <div style="margin-top: 2%; margin-bottom: 2%; width:49%; margin-left: 5%">
+                                    <div class="Form-group">
+                                    <input asp-for="Telefone" title="Telefone" class="form-control" placeholder="Telefone"/>
+                                </div>
+                                    @Html.ValidationMessageFor(x => x.Telefone)
+                            </div>
+
+                        <div style="margin-top: 2%; margin-bottom: 2%">
+                                    <div class="Form-group" title="Formação Acadêmica">
+                                    <input asp-for="Curso" class="form-control" placeholder="Curso"/>
+                                </div>
+                                    @Html.ValidationMessageFor(x => x.Curso)
+                        </div>
+
+                        <div class = "Row" style="margin-top: 2%; margin-bottom: 2%; font-size:0">
+                            <div class="Form-group" style="width:39% ; margin-left: 10%">
+                                <input asp-for="DataInicioCurso"  title="Data de Início do Curso" type="date" class="form-control" placeholder="Data Inicio do Curso"/>
+                            </div>
+                                @Html.ValidationMessageFor(x => x.DataInicioCurso)
+                            <div class="Form-group" title="Data Final do Curso" style="width:39% ;margin-right : 10%">
+                                <input asp-for="PrevisaoFimCurso" type="date" class="form-control" placeholder="Data Final do Curso (Prevista)"/>
+                            </div>
+                                @Html.ValidationMessageFor(x => x.PrevisaoFimCurso)
+                        </div>
+
+                        <div style="margin-top: 2%; margin-bottom: 2%">
+                            <div class="Form-group" title="E-mail do Aluno">
+                            <input asp-for="Email" class="form-control" placeholder="Email"/>
+                        </div>
+                            @Html.ValidationMessageFor(x => x.Email)
+                        </div>
+
+                        <div style="margin-top: 2%; margin-bottom: 2%">
+                                <div class="Form-group" title="Senha de Acesso">
+                                <input type="password" asp-for="Senha" class="form-control" placeholder="Senha" value="@Model.Senha"/>
+                            </div>
+                                @Html.ValidationMessageFor(x => x.Senha)
+                        </div>
+
+                        <div style="margin-top: 2%; margin-bottom: 2%">
+                             <div class="Form-group">
+                                <select asp-for="EspecificacaoVaga" class="form-control" asp-items = "Html.GetEnumSelectList<EspecificacaoVagaEnum>()">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2%; margin-bottom: 2%">
+                            <div class="form-group" title="Sobre Você">
+                                <textarea asp-for="Descricao" class="form-control" style="width: 80%;height: 100px;margin: 0 auto;border-color: #6f42c1;resize: none" rows="3" placeholder="Sobre Você"></textarea>
+                            </div>
+                        </div>
+
+                        <input type="submit" id="" value="Salvar" class="log-in" style="background-color: #8345D7; margin-left: 797px; margin-top: 8px">
+                        
+            </form>
+             <ul class="list-items">
+                  <li><a href="#" class="btn btn-primary empresa" data-toggle="modal" data-target="#exampleModal" style="background-color: #8345D7; margin-left: 89px; margin-top: -112px; width: 191px;">Tags</a></li>
+            </ul> 
+        </div>
+        
+        <div class="modal-container" id="modal-teste" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="width: 500px; background-color: #F0FFFF">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color: #8345D7;">Tags</h5>
+                <button type="button" id = "voltar" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="Tag" class="col-form-label" id ="recipient-name" style="color: #8345D7">Tag:</label>
+                    <input type="text" class="form-control" id="NomeTag" placeholder="Nome da Tag" style="border-color:#8345D7">
+                  </div>
+                  <div class="form-group">
+                        <button type="button"  id="adicionar" class="log-in"  value="Adicionar" style= "background-color:#8345D7; padding : 10px">Adicionar</button>
+                  </div>
+                  <div class="form-group">
+                    <ul id="nav_1" class="col-12 offset-0 col-sm-8 offset-sm-2">
+                        @foreach (var item in Model.Tag)
+                        {
+                            <li> @item.TagName <button class="DeleteTag">X</button> </li>
+                        }
+                    </ul>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" id="salvar" class="log-in" style="background-color:#8345D7 ; padding: 10px; margin-top : -0.5rem ; margin-bottom : -0.5rem">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="~/js/list.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+ <style type="text/css">
+    .image-upload > input
+    {
+    display: none;
+    }
+</style>
+
+<script>
+
+    $('.DeleteTag').on('click', function(){
+            var parent = this.parentNode;
+            parent.classList.add("delete");
+        });
+
+     // PREVIEW FOTO
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("card-img").src = oFREvent.target.result;
+        };
+    };
+
+    $(function () {
+
+        var form;
+        $('#uploadImage').change(function (event) {
+            debugger
+            form = new FormData();
+            form.append('fileUpload', event.target.files[0]);
+
+            $.ajax({
+                url: '/Usuario/GetFotoPerfil', // Url do lado server que vai receber o arquivo
+                data: form,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                }
+            });
+        });
+    });
+
+    function aparecerTexto() {
+      document.getElementById("div").innerHTML = "Texto";
+    }
+    function reset() {
+      document.getElementById("div").innerHTML = "";
+    }
+
+    function modalLogin(modalID) {
+        const modal = document.getElementById(modalID);
+        modal.classList.add('mostrar');
+        modal.addEventListener('click', (e) => {
+            if(e.target.id == modalID || e.target.id == 'voltar'){
+                modal.classList.remove('mostrar');
+            }
+            if (e.target.id == modalID || e.target.id == 'salvar') {
+                const lis = document.getElementById('nav_1').getElementsByTagName('li');
+
+                const lista = [];
+
+                debugger
+
+                for (let i = 0; i <= lis.length - 1; i++) {
+                    if(lis[i].className != "delete"){
+                        var tags = new Object();
+                        tags.TagId = 0;
+                        tags.TagName = lis[i].textContent.replace("X", "");
+                        tags.UsuarioId = @Model.UsuarioID;
+                        lista.push(tags);
+                    }
+                }
+                debugger
+                var jsonObjs = JSON.stringify(lista);
+
+                 CarregaNotas(jsonObjs);
+
+
+                modal.classList.remove('mostrar');
+            }
+        })
+    }
+
+    const empresa = document.querySelector('.empresa');
+    empresa.addEventListener('click', function () {
+        modalLogin('modal-teste');
+    })
+
+    function CarregaNotas(notas) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/usuario/GetDados",
+            dataType: "json",
+            data: { modelo: notas} ,
+                success: function (data) {
+
+
+                }
+
+            });
+    }
+</script>
+
+
+
+</body>
+
+</html>
+
+
